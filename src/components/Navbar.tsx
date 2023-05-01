@@ -48,10 +48,10 @@ const Navbar = () => {
         </li>
 
         <li>
-          <NavbarRoundButtons image={"user"} />
+          <NavbarRoundButtons image={"user"} path={``}/>
         </li>
         <li>
-          <NavbarRoundButtons image={"cart"} />
+          <NavbarRoundButtons image={"cart"} path={`Cart`} />
         </li>
 
         <div
@@ -75,9 +75,10 @@ const Navbar = () => {
         </div>
 
         <li>
-          <button className="btn-blk mx-3 hidden lg:block">Shop Now</button>
+          <button className="btn-blk mx-3 hidden lg:block">
+            <Link href={'/'}>Shop Now</Link>
+          </button>
         </li>
-
       </ul>
       <div
         className={` flex-col  lg:flex lg:flex-row justify-center items-center list-none py-5 ${

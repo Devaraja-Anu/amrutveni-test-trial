@@ -1,32 +1,41 @@
 import React from 'react'
 import Image from 'next/image'
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { addOrder } from '@/features/storeSlice';
+import { ProductCard } from "@/types/productTypes";
+import { toast } from 'react-toastify';
 
-type ProductCard = {
-    image:string,
-    title:string,
-    cost:string
-}
 
-const ProductCard = (props:ProductCard) => {
+const ProductCard = ({item}:{item:ProductCard}) => {
+
+  const dispatch = useAppDispatch();
+
+  const handleAddtoCart = (product:ProductCard) => {
+    dispatch(addOrder(product))
+    toast.info('Item added to Cart')
+  };
+
+  
+
   return (
     <div className="card-bdr w-52 p-5 h-96">
       <div className="h-1/2 overflow-clip flex-centered mb-4">
         <Image
           className="object-cover w-40"
-          src={`/${props.image}.jpg`}
+          src={`/${item.image}.jpg`}
           alt="product"
           width={50}
           height={50}
         />
       </div>
 
-      <div className='px-2'>
-        <p className="pb-4">{props.title}</p>
-        <p className="pb-4">&#x20b9; {props.cost}</p>
+      <div className="px-2">
+        <p className="pb-4">{item.title}</p>
+        <p className="pb-4">&#x20b9; {item.cost}</p>
 
-        <button className="btn-blk">
+        <button onClick={() => dispatch(() => handleAddtoCart(item) )} className="btn-blk">
           <Image src={"/cart.png"} alt="cart" width={20} height={20} /> Add to
-          Cart{" "}
+          Cart
         </button>
       </div>
     </div>

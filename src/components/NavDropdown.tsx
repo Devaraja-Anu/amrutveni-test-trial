@@ -9,11 +9,7 @@ type NavDropdown = {
 };
 
 
-
 const NavDropdown = (props:NavDropdown) => {
-
-const [visible,setVisible] = useState(false)
-
 
   return (
     <div className="group">

@@ -20,4 +20,12 @@
         @apply  hover:bg-slate-200 px-4 py-2 rounded-lg
     }
 
+    .qty-btn {
+        @apply border-2 border-black  h-9 w-16 m-1 rounded-lg flex justify-center items-center hover:scale-110 transition-all
+    }
+
+    .cart-txt {
+        @apply font-semibold py-1
+    }
+
 }
