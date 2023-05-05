@@ -36,8 +36,8 @@ const ProductPage = () => {
           <div className="flex justify-center">
             <Image
               className=" w-44 object-cover"
-              loader={() => details.image}
-              src={details.image}
+              loader={() => data?.data.data[0].image}
+              src={data?.data.data[0].image}
               width={80}
               height={80}
               alt="large product sample"
@@ -45,13 +45,15 @@ const ProductPage = () => {
           </div>
 
           <div className="px-5 flex flex-col items-center justify-center ">
-            <p className="font-semibold text-xl pt-4">{details.name}</p>
+            <p className="font-semibold text-xl pt-4">
+              {data?.data.data[0].name}
+            </p>
             <p className="font-semibold text-xl pt-4 py-4">
-              Cost: &#x20b9; {details.max_retail_price}
+              Cost: &#x20b9; {data?.data.data[0].max_retail_price}
             </p>
             <p className="py-4 text-xl font-semibold">
               {" "}
-              {details.in_stock ? `In Stock` : `Out of Stock`}
+              {data?.data.data[0].in_stock ? `In Stock` : `Out of Stock`}
             </p>
           </div>
         </div>
