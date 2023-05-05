@@ -9,7 +9,6 @@ type roundButtons={
 
 
 const NavbarRoundButtons = ({image,path}:roundButtons) => {
-  console.log(image)
   return (
     <div>
       <div>

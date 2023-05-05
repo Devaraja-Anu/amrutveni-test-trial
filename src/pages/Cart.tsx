@@ -10,15 +10,12 @@ import CartCard from '@/components/CartCard';
 
 
 
-
-
-
 const Cart = () => {
 
   const cart = useAppSelector((state) => state.store);
   const dispatch = useAppDispatch();
 
-const totalCost = cart.cartItems.reduce((total,item) => total + item.cartQty*item.cost,0 )
+const totalCost = cart.cartItems.reduce((total,item) => total + item.cartQty*item.max_retail_price,0 )
 const totalItems = cart.cartItems.reduce((total,item)=> total+item.cartQty,0)
 
 
@@ -40,7 +37,7 @@ const totalItems = cart.cartItems.reduce((total,item)=> total+item.cartQty,0)
       ) : (
         cart.cartItems.map((item) => {
           return (
-            <div key={item.id}>
+            <div key={item.uuid}>
               <CartCard item={item} />
             </div>
           );

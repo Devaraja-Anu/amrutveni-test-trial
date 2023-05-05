@@ -1,26 +1,25 @@
 import React from 'react'
 import Image from 'next/image';
-import { ProductCard } from '@/types/productTypes';
 import { useAppDispatch } from '@/app/hooks';
 import { addOrder, clearCart, clearOrder, removeOrder } from '@/features/storeSlice';
 
 
 
 
-const CartCard = ({item}:{item:ProductCard}) => {
+const CartCard = ({item}:{item:Datum}) => {
 
   const dispatch = useAppDispatch();
 
-  const handleAddtoCart = (product:ProductCard)=>{
-    dispatch(addOrder(product))
-  }
+  const handleAddtoCart = (item: Datum) => {
+    dispatch(addOrder(item));
+  };
 
-  const handleReduceOrder = (product:ProductCard)=>{
-    dispatch(removeOrder(product))
-  }
+  const handleReduceOrder = (item: Datum) => {
+    dispatch(removeOrder(item));
+  };
 
-  const handleClearOrder = (product: ProductCard) => {
-    dispatch(clearOrder(product));
+  const handleClearOrder = (item: Datum) => {
+    dispatch(clearOrder(item));
   };
 
 
@@ -33,7 +32,8 @@ const CartCard = ({item}:{item:ProductCard}) => {
         <div className="">
           <Image
             className="object-cover w-40"
-            src={`/${item.image}.jpg`}
+            loader={()=>item.image}
+            src={item.image}
             alt="product "
             width={80}
             height={80}
@@ -43,7 +43,7 @@ const CartCard = ({item}:{item:ProductCard}) => {
         {/* text */}
 
         <div className="pt-5 flex flex-col items-center">
-          <p className="text-2xl font-semibold py-3 ">{item.image}</p>
+          <p className="text-2xl font-semibold py-3 ">{item.name}</p>
           <p className="cart-txt">Delivery in (9) days</p>
           <button onClick={() => handleClearOrder(item)} className="qty-btn w-28 mt-2 ">Remove Item </button>
         </div>
@@ -99,11 +99,11 @@ const CartCard = ({item}:{item:ProductCard}) => {
 
         <div className="py-4 mb-8 flex flex-col items-center justify-center mt-5">
           <p className="cart-txt text-xl">Cost per Item</p>
-          <p className="cart-txt text-xl">&#x20b9; {item.cost}</p>
+          <p className="cart-txt text-xl">&#x20b9; {item.max_retail_price}</p>
           <div className="py-4">
             <p className="font-semibold text-xl">Total Cost</p>
             <p className="font-semibold text-xl">
-              &#x20b9; {item.cost * item.cartQty}
+              &#x20b9; {item.max_retail_price * item.cartQty}
             </p>
           </div>
         </div>

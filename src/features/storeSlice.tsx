@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ProductCard } from "@/types/productTypes";
   import { ToastContainer, toast } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
 
 
 type productNum = {
-   cartItems:ProductCard[],
+   cartItems:Datum[],
 
 }
 
@@ -19,7 +18,7 @@ const storeSlice = createSlice({
   reducers: {
     addOrder: (state,action) => {
       const itemIndex = state.cartItems.findIndex(
-        item => item.id === action.payload.id
+        item => item.uuid === action.payload.uuid
       )
       if( itemIndex >= 0){
         state.cartItems[itemIndex].cartQty += 1
@@ -32,21 +31,21 @@ const storeSlice = createSlice({
     },
     removeOrder: (state,action) => {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.uuid === action.payload.uuid
       )
       if(state.cartItems[itemIndex].cartQty > 1){
         state.cartItems[itemIndex].cartQty -= 1;
       }
       else if(state.cartItems[itemIndex].cartQty === 1){
           const upDatedCartItems = state.cartItems.filter(
-            (item) => item.id != action.payload.id
+            (item) => item.uuid != action.payload.uuid
           );
           state.cartItems = upDatedCartItems;
       }
         
     },
     clearOrder:(state,action) => {
-        const upDatedCartItems = state.cartItems.filter(item => item.id != action.payload.id ) 
+        const upDatedCartItems = state.cartItems.filter(item => item.uuid != action.payload.uuid ) 
         state.cartItems = upDatedCartItems;
     },
     clearCart:(state) => {

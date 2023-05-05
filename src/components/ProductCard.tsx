@@ -2,38 +2,45 @@ import React from 'react'
 import Image from 'next/image'
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { addOrder } from '@/features/storeSlice';
-import { ProductCard } from "@/types/productTypes";
 import { toast } from 'react-toastify';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import path from 'path';
+import axios from 'axios';
 
-
-const ProductCard = ({item}:{item:ProductCard}) => {
+const ProductCard = ({item}:{item:Datum}) => {
 
   const dispatch = useAppDispatch();
 
-  const handleAddtoCart = (product:ProductCard) => {
+  const handleAddtoCart = (product:Datum) => {
     dispatch(addOrder(product))
     toast.info('Item added to Cart')
   };
 
+
+
   
 
   return (
-    <div className="card-bdr w-52 p-5 h-96">
+    <div className="card-bdr w-52 h-[420px] p-5">
       <div className="h-1/2 overflow-clip flex-centered mb-4">
-        <Image
-          className="object-cover w-40"
-          src={`/${item.image}.jpg`}
-          alt="product"
-          width={50}
-          height={50}
-        />
+        <Link href={`/products/${item.uuid}`} >
+          <Image
+            loader={() => item.image}
+            className="object-cover w-40 hover:cursor-pointer"
+            src={`${item.image}`}
+            alt="product"
+            width={50}
+            height={50}
+          />
+        </Link>
       </div>
 
       <div className="px-2">
-        <p className="pb-4">{item.title}</p>
-        <p className="pb-4">&#x20b9; {item.cost}</p>
+        <p className="pb-4">{item.name}</p>
+        <p className="pb-4">Price: &#x20b9; {item.max_retail_price}</p>
 
-        <button onClick={() => dispatch(() => handleAddtoCart(item) )} className="btn-blk">
+        <button onClick={() => handleAddtoCart(item)} className="btn-blk mb-8">
           <Image src={"/cart.png"} alt="cart" width={20} height={20} /> Add to
           Cart
         </button>
